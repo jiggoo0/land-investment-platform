@@ -1,0 +1,53 @@
+/** @format */
+
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "debian-openssl-1.1.x", "linux-arm64-openssl-1.1.x"]
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum Role {
+  USER
+  AGENT
+  INVESTOR
+  ADMIN
+}
+
+model User {
+  id           String    @id @default(cuid())
+  name         String?
+  email        String    @unique
+  role         Role      @default(USER)
+  subscription String    @default("FREE")
+  listings     Listing[]
+  payments     Payment[]
+  createdAt    DateTime  @default(now())
+}
+
+model Listing {
+  id          String   @id @default(cuid())
+  title       String
+  price       Float
+  sqWha       Float
+  zoningColor String
+  latitude    Float
+  longitude   Float
+  images      String[]
+  isVerified  Boolean  @default(false)
+  ownerId     String
+  owner       User     @relation(fields: [ownerId], references: [id])
+  createdAt   DateTime @default(now())
+}
+
+model Payment {
+  id        String   @id @default(cuid())
+  amount    Float
+  status    String
+  type      String
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  createdAt DateTime @default(now())
+}

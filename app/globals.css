@@ -1,0 +1,114 @@
+/** @format */
+@import 'tailwindcss';
+
+/* ----------------------------------------------------
+   🏗️ THEME CONFIGURATION (Modern Tailwind v4 Style)
+   ---------------------------------------------------- */
+@theme {
+  /* Font Family Integration */
+  --font-sans: var(--font-inter), var(--font-sarabun), sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
+  /* Luxury Brand Color Palette */
+  --color-brand-primary: #4a2c10; /* Walnut Brown */
+  --color-brand-accent: #a68966; /* Satin Brass */
+  --color-brand-surface: #fdfcfb; /* Bone Ivory */
+
+  /* System Colors */
+  --color-success: #15803d;
+  --color-warning: #b45309;
+  --color-error: #b91c1c;
+
+  /* Spacing & Radius */
+  --radius-xl: 1rem;
+  --radius-2xl: 1.5rem;
+}
+
+/* ----------------------------------------------------
+   🎨 BASE STYLES
+   ---------------------------------------------------- */
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 20 14.3% 4.1%;
+  }
+
+  * {
+    @apply border-stone-200;
+  }
+
+  body {
+    @apply bg-[var(--color-brand-surface)] text-stone-900 antialiased;
+    font-feature-settings:
+      'rlig' 1,
+      'calt' 1;
+  }
+
+  html {
+    @apply scroll-smooth;
+  }
+}
+
+/* ----------------------------------------------------
+   ✨ CUSTOM UTILITIES & COMPONENTS
+   ---------------------------------------------------- */
+@layer utilities {
+  /* Luxury Glassmorphism */
+  .glass-morphism {
+    @apply border border-white/20 bg-white/75 shadow-sm backdrop-blur-md;
+  }
+
+  /* Core Action Button */
+  .btn-gradient {
+    @apply bg-gradient-to-br from-stone-900 via-stone-800 to-stone-900 text-white shadow-lg transition-all duration-300;
+    &:hover {
+      @apply -translate-y-0.5 shadow-xl;
+    }
+    &:active {
+      @apply translate-y-0;
+    }
+  }
+
+  /* Custom Thin Scrollbar */
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 5px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    @apply rounded-full bg-stone-300 hover:bg-stone-400;
+  }
+
+  /* 🛠️ Map Popup Overrides: แก้ไขเพื่อเลี่ยงปัญหา Build ใน Termux */
+  .mapboxgl-popup-content {
+    border-radius: var(--radius-2xl) !important;
+    padding: 0 !important;
+    border: none !important;
+    box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25) !important;
+    background-color: white !important;
+  }
+
+  .mapboxgl-popup-tip {
+    border-top-color: white !important;
+  }
+}
+
+/* ----------------------------------------------------
+   🎬 ANIMATIONS
+   ---------------------------------------------------- */
+@layer components {
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+}
